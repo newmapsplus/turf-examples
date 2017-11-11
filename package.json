@@ -17,7 +17,7 @@
     "GeoJSON"
   ],
   "author": "rgdonohue",
-  "license": "ISC",
+  "license": "WTFPL",
   "bugs": {
     "url": "https://github.com/newmapsplus/turf-examples/issues"
   },
