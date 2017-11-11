@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/newmapsplus/turf-examples/issues"
   },
-  "homepage": "https://github.com/newmapsplus/turf-examples#readme"
+  "homepage": "https://github.com/newmapsplus/turf-examples#readme",
+  "dependencies": {
+    "@turf/turf": "^5.0.4"
+  }
 }
