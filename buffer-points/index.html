@@ -1,0 +1,65 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Turf buffer points example</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+
+  <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+  </style>
+
+</head>
+
+<body>
+        <div id="map"></div>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+        <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+  <script>
+
+        // create Leaflet map, centered on Texas
+        var map = L.map('map', {
+            zoomSnap: .1,
+            center: [7.26, 17.89],
+            zoom: 4
+        });
+
+        // add a basemap of tiles
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
+            maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+        }).addTo(map);
+
+        $.getJSON('points.json', function(data) {
+
+            // create a layerGroup with points data
+            var points = L.geoJson(data).addTo(map);
+
+            // loop through the points
+            points.eachLayer(function(point) {
+                // create a GeoJSON polyfeature buffer
+                var bufferGeoJSON = turf.buffer(point.toGeoJSON(), 500, {
+                    units: 'kilometers'
+                });
+
+                // use the buffer GeoJSON to create a leaflet layer
+                L.geoJson(bufferGeoJSON).addTo(map);
+
+            });
+        });
+
+  </script>
+</body>
+</html>
