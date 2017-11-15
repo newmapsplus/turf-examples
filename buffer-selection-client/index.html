@@ -21,7 +21,6 @@
             top: 0;
             bottom: 0;
         }
-
     </style>
 
 </head>
@@ -32,17 +31,25 @@
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
     <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <script>
+        var points = {};
+        
         // create Leaflet map, centered on Texas
         var map = L.map('map', {
             zoomSnap: .1,
-            center: [7.26, 17.89],
-            zoom: 4
+            center: [30.97, -98.26],
+            zoom: 6
         });
+        
+        //a layerGroup just for our eensy weensy buffer on the map
+        var bufferCircle = L.layerGroup().addTo(map);
+        
         //let's get our click location to buffer
         map.on('click', function(e) {
-            //call our functions to create a buffer and select the points within it
-            selectPoints(bufferPoint(e,500));
-            
+            //clear our buffer circle
+            bufferCircle.clearLayers();
+            //call our functions to create a buffer and select the points within it [change the 200 to whatever you want the buffer to be]
+            selectPoints(bufferPoint(e, 200));
+
         });
 
         // add a basemap of tiles
@@ -54,30 +61,37 @@
         $.getJSON('points.json', function(data) {
 
             // create a layerGroup with points data
-            var points = L.geoJson(data).addTo(map);
+            points = L.geoJson(data).addTo(map);
 
-            
+
         });
 
+        //Function used to create our buffer!
         function bufferPoint(clickPoint, distance) {
-            points.eachLayer(function(point) {
-                // create a GeoJSON polyfeature buffer
-                var bufferGeoJSON = turf.buffer(clickPoint.toGeoJSON(), distance, {
-                    units: 'kilometers'
-                });
-
-                // use the buffer GeoJSON to create a leaflet layer
-                L.geoJson(bufferGeoJSON).addTo(map);
-
+            var pointMarker = L.marker(clickPoint.latlng);
+            // create a GeoJSON polyfeature buffer
+            var bufferGeoJSON = turf.buffer(pointMarker.toGeoJSON(), distance, {
+                units: 'kilometers'
             });
-            return bufferGeoJSON;
-        };
-        function bufferPoint(buffRing) {
-            console.log(buffRing);
-        };
-        
-        
 
+            // use the buffer GeoJSON to create a leaflet layer
+            bufferCircle.addLayer(L.geoJson(bufferGeoJSON));
+            return bufferGeoJSON;
+
+        };
+
+        //Function used to find our points in the buffer
+        function selectPoints(buffRing) {
+            //go through our points
+            points.eachLayer(function(point) {
+                
+                var pt = turf.point([point._latlng.lng, point._latlng.lat]);
+                if (turf.booleanPointInPolygon(pt, buffRing)) {
+                    //replace this console.log with your appropriate code to do things to your points in the buffer.
+                    console.log("selected it!");
+                }
+            });
+        };
     </script>
 </body>
 
