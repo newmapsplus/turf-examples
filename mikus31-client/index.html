@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Module 03 Turf.js</title>
+    <title>Great Circles</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
     <style>
         body {
@@ -25,6 +25,7 @@
     <div id="map"></div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <script>
         // create Leaflet map, centered on Texas
         var map = L.map('map', {
@@ -37,6 +38,14 @@
             maxZoom: 18
             , attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
         }).addTo(map);
+        var start = turf.point([-122, 48]);
+        var end = turf.point([-77, 39]);
+        var greatCircle = turf.greatCircle(start, end, {
+            'name': 'Seattle to DC'
+        });
+        L.geoJSON(start).addTo(map);
+        L.geoJSON(end).addTo(map);
+        L.geoJSON(greatCircle).addTo(map);
     </script>
 </body>
 
