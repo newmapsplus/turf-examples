@@ -104,7 +104,9 @@
             //go through our points
             points.eachLayer(function(point) {
                 //it just wants coordinates for the point
-                var pt = turf.point([point._latlng.lng, point._latlng.lat]);
+                console.log(point);
+                var pt = turf.getCoord(point.feature);
+                console.log(pt);
                 if (turf.booleanPointInPolygon(pt, buffRing)) {
                     //points inside the buffer will be green
                     point.setIcon(greenIcon);
