@@ -51,6 +51,7 @@
         var greatCircle = turf.greatCircle(start, end, {
             'name': 'Great Circle!'
         });
+        // add a label that includes calculation of distance between the two points in miles?
         // add points and greatCircle to map
         L.geoJSON(points).addTo(map);
         L.geoJSON(greatCircle).addTo(map);
