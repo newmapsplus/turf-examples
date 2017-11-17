@@ -48,6 +48,8 @@
         var end = points.features[1];
         // console.log(start);
         // pass vars into greatCircle here
+        // what if i passed the start and end points as reference points in the nearestPoint Turf method? And then, within nearestPoint, included a feature collection of airport locations from which the two nearest airports to the random points are chosen and then passed to the greatCircle var?
+        // or, hard-code the start location and then randomly generate the destination via random point, pass it into nearestPoint, find the nearest airport, then pass that into greatCircle to create a simple "Where to Next?" app
         var greatCircle = turf.greatCircle(start, end, {
             'name': 'Great Circle!'
         });
