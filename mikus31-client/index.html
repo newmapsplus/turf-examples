@@ -38,20 +38,23 @@
             maxZoom: 18
             , attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
         }).addTo(map);
-        // var start = turf.point([-122, 48]);
-        // var end = turf.point([-77, 39]);
+        // use turf to generate two random points in or near the contig united states
         var points = turf.randomPoint(2, {
             bbox: [-124.848974, 24.396308, -66.885444, 49.384358]
         });
         // console.log(points);
+        // pull the points out of the two-feature array and into individual variables so that they can be passed into the greatCircle var
         var start = points.features[0];
         var end = points.features[1];
-        console.log(start);
+        // console.log(start);
+        // pass vars into greatCircle here
         var greatCircle = turf.greatCircle(start, end, {
             'name': 'Great Circle!'
         });
+        // add points and greatCircle to map
         L.geoJSON(points).addTo(map);
         L.geoJSON(greatCircle).addTo(map);
+        // refreshing the map generates new points and greatCircle!
     </script>
 </body>
 
