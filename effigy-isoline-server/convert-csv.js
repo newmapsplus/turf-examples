@@ -36,8 +36,10 @@ csv({
                 "coordinates": [
                     +jsonObj.X,
                     +jsonObj.Y,
+                  ],
+                "elevation": [
                     +jsonObj.Z
-                  ]
+                ]
                 },
                 "properties": {
                     FEATURE_NAME: jsonObj.OBJECTID
