@@ -60,3 +60,6 @@ typings/
 # Serpent mound LiDAR data
 effigy-tin-server/project-data/SerpentMoundModelLASData.las
 
+# Serpent LiDAR JSON
+effigy-tin-server/data/serpent.json
+

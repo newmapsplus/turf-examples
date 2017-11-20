@@ -13,3 +13,7 @@ added las data set to gitignore file (its 87MB)
 Used homebrewer to download and install liblas library
 
 used las2ogr -formats to see what output options i could use - have several including shapefile, csv, and GeoJSON
+
+converted las data to geojson using:
+    las2ogr -i project-data/SerpentMoundModelLASData.las -o data/serpent.json -f "GeoJSON"
+note - is there a way to do that within the script? I initially tried and it did not like it.

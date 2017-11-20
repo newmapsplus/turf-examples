@@ -1,11 +1,6 @@
 const fs = require('fs')
 const turf = require('@turf/turf')
 
-fs.readFile('project-data/SerpentMoundModelLASData.las', 'utf8', (err) => {
-    if (err) throw err
-    las2ogr -i project-data/SerpentMoundModelLASData.las -o data/serpent.json -f "GeoJSON"
-})
-
 // read the points GeoJSON file
 fs.readFile('data/serpent.json', 'utf8', (err, data) => {
     if (err) throw err
