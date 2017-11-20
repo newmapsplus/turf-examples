@@ -8,8 +8,10 @@ fs.readFile('horeb.json', 'utf8', (err, data) => {
     if (err) throw err
     // parse the string to GeoJSON
     const points = JSON.parse(data)
+    // create breaks for isolines
+    const breaks = [840, 845, 850, 855, 860, 865, 870, 875, 880, 885, 890, 895, 900, 905]
     // convert to an Isoline GeoJSON
-    const isolines = turf.isolines(points, {zProperty: 'Z'})
+    const isolines = turf.isolines(points, breaks, {zProperty: 'Z'})
     // output file name
     const outFileName = 'horeb-isolines.json'
     
