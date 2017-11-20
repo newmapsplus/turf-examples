@@ -57,3 +57,6 @@ typings/
 # dotenv environment variables file
 .env
 
+# Serpent mound LiDAR data
+horeb-tin-server/project-data/SerpentMoundModelLASData.las
+
