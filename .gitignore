@@ -58,5 +58,5 @@ typings/
 .env
 
 # Serpent mound LiDAR data
-horeb-tin-server/project-data/SerpentMoundModelLASData.las
+effigy-tin-server/project-data/SerpentMoundModelLASData.las
 
