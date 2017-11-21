@@ -48,20 +48,22 @@
             maxZoom: 18
             , attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
         }).addTo(map);
-        // used this website to create a bounding box: https://www.mapdevelopers.com/geocode_bounding_box.php
-        var bbox = [-95, 28, -88, 34];
-        var cellSide = 50;
-        var options = {
-            units: 'miles'
-        };
-        // create a square grid over the bounded area
-        var squareGrid = turf.squareGrid(bbox, cellSide, options);
+        // used this website to determine bounds of polygon: https://www.mapdevelopers.com/geocode_bounding_box.php
+        var polygon = turf.polygon([[
+            [-95, 28]
+            , [-95, 34]
+            , [-88, 34]
+            , [-88, 28]
+            , [-95, 28]
+        ]]);
         // add a feature collection of random points
         var points = turf.randomPoint(1000, {
             bbox: [-124.848974, 24.396308, -66.885444, 49.384358]
         });
         // do a point in polygon analysis
-        L.geoJSON(squareGrid).addTo(map);
+        // var searchWithin = turf.featureCollection(squareGrid);
+        // var pointsWithin = turf.pointsWithinPolygon(points, searchWithin);
+        L.geoJSON(polygon).addTo(map);
         L.geoJSON(points).addTo(map);
     </script>
 </body>
