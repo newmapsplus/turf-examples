@@ -62,7 +62,7 @@ csv({
     }
 
     // write output file
-    fs.writeFile('data/serpent.json', JSON.stringify(geojson), 'utf-8', (err) => {
+    fs.writeFile('serpent.json', JSON.stringify(geojson), 'utf-8', (err) => {
         
         if(err) throw err
         
