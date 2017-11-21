@@ -17,3 +17,7 @@ used las2ogr -formats to see what output options i could use - have several incl
 converted las data to geojson using:
     las2ogr -i project-data/SerpentMoundModelLASData.las -o data/serpent.json -f "GeoJSON"
 note - is there a way to do that within the script? I initially tried and it did not like it.
+
+converting las to geojson made the biggest json ever so converted las to txt file - and realized the coordinates are in UTM.
+las2txt -i project-data/SerpentMoundModelLASData.las -o data/serpent.txt
+
