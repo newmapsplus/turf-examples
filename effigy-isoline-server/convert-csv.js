@@ -37,12 +37,10 @@ csv({
                     +jsonObj.X,
                     +jsonObj.Y,
                   ],
-                "elevation": [
-                    +jsonObj.Z
-                ]
                 },
                 "properties": {
-                    FEATURE_NAME: jsonObj.OBJECTID
+                    FEATURE_NAME: jsonObj.OBJECTID,
+                    "elevation": +jsonObj.Z
                 }
         }
         // push the feature into the features array
