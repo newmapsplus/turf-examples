@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Random Points & A Great Circle!</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #map {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+        
+        #info {
+            position: absolute;
+            top: 450px;
+            right: 20px;
+            z-index: 650;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map">
+        <div id="info">
+            <h1>Press F5 to Refresh!</h1></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <script>
+        // create Leaflet map
+        var map = L.map('map', {
+            zoomSnap: .1
+            , center: [40.33077, -99.5182]
+            , zoom: 4.3
+        });
+        // add a basemap of tiles
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
+            maxZoom: 18
+            , attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+        }).addTo(map);
+        // use turf to generate two random points in or near the contig united states
+        var points = turf.randomPoint(2, {
+            bbox: [-124.848974, 24.396308, -66.885444, 49.384358]
+        });
+        // console.log(points);
+        // pull the points out of the two-feature array and into individual variables so that they can be passed into the greatCircle var
+        var start = points.features[0];
+        var end = points.features[1];
+        // console.log(start);
+        // pass vars into greatCircle here
+        // what if i passed the start and end points as reference points in the nearestPoint Turf method? And then, within nearestPoint, included a feature collection of airport locations from which the two nearest airports to the random points are chosen and then passed to the greatCircle var?
+        // or, hard-code the start location and then randomly generate the destination via random point, pass it into nearestPoint, find the nearest airport, then pass that into greatCircle to create a simple "Where to Next?" app
+        var greatCircle = turf.greatCircle(start, end, {
+            'name': 'Great Circle!'
+        });
+        // add a label that includes calculation of distance between the two points in miles?
+        var distance = turf.distance(start, end, options);
+        var options = {
+            units: 'miles'
+        };
+        console.log(distance);
+        var distanceRound = distance.toFixed(2);
+        var popup = "These random points are " + distanceRound + " miles apart."
+        console.log(popup);
+        // find the midpoint between the start and end for the openTooltip command
+        var midpoint = turf.midpoint(start, end);
+        console.log(midpoint);
+        var midCoords = midpoint.geometry.coordinates;
+        console.log(midCoords);
+        // add points and greatCircle to map
+        L.geoJSON(points).addTo(map);
+        L.geoJSON(greatCircle).bindTooltip(popup).addTo(map).openTooltip([midCoords[1], midCoords[0]]);
+        // refreshing the map generates new points and greatCircle!
+        // idea for a future map/application: allow users to add their own points to create a web map of world travel ala a digital version of a wall map at home with pushpins
+        // other idea: randomly select two points from a database of points (airports, for example) and generate great circle between them. Or ...
+        // allow user to choose a start point (home airport) and then click a "Where To Next?" button to randomly select another airport from a database of airport locations. Like throwing a dart at the map, only in digital!
+    </script>
+</body>
+
+</html>
