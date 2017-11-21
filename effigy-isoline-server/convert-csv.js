@@ -26,7 +26,7 @@ csv({
 })
 .fromStream(readableStream) // reads from stream
 .on('json',(jsonObj, i)=>{ // converts to json
-    if((i % 10000) == 0) console.log("testing row #: "+ chalk.blue(i))
+    if((i % 1000) == 0) console.log("testing row #: "+ chalk.blue(i))
 
         // build a GeoJSON feature for each
         feature = {
