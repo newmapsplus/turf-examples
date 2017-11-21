@@ -22,3 +22,6 @@ converting las to geojson made the biggest json ever so converted las to txt fil
 las2txt -i project-data/SerpentMoundModelLASData.las -o data/serpent.txt
 
 due to the epic size of the las data, i converted it to a txt file using the above command. it was too big to really use, so i brought it into arcgis and selected a 1% sample of the data and calculated the lat and long. will use the new csv for processing going forward.
+
+used csvtogeojson to convert serpent.csv to a geojson.
+used to turf to sample 100 points from the json and use those to make a tin

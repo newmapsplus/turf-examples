@@ -8,11 +8,13 @@ fs.readFile('serpent.json', 'utf8', (err, data) => {
     const points = JSON.parse(data)
     // sample the GeoJSON
     const sample = turf.sample(points, 100)
-
+    // convert to a TIN GeoJSON
+    const tin = turf.tin(sample, 'Z')
+        
     // stringify the GeoJSON and write to file
-    fs.writeFile('serpent-sample.json', JSON.stringify(sample), 'utf8', (err) => {
+    fs.writeFile('serpent-tin.json', JSON.stringify(tin), 'utf8', (err) => {
         if (err) throw err
-        console.log('serpent-sample.json written to file')
+        console.log('serpent-tin.json written to file')
     });
 
 })
