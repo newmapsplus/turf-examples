@@ -2,26 +2,28 @@
 
 This repository houses simple examples that use [Turf.js](http://turfjs.org/) for solving small, specific GIS and mapping problems.
 
-chrispappas007 turf examples
+### Chris's (chrispappas007) Turf Examples
 
-decided to create tins of effigy mounds using LiDAR data
+I decided to process elevation data from two different prehistoric effigy mounds, the [Great Serpent Mound](https://www.ohiohistory.org/visit/museum-and-site-locator/serpent-mound) in Ohio and [Mt. Horeb](http://www.heritage.ky.gov/kas/kyarchynew/Mt.+Horeb.htm) in Kentucky.
 
-downloaded Great Serpent Mound las model from https://www.liblas.org/ - I could have downloaded the point clouds from the state of Ohio, used a shapefile of the mound to clip the clouds to just the mound and then used that selection for processing to tins but I was lazy
+#### Isolines at Mt. Horeb
 
-added las data set to gitignore file (its 87MB)
+The data for Mt. Horeb was drawn from the [KYAPED Kentucky 5 Foot DEM](http://kygisserver.ky.gov/geoportal/catalog/search/resource/details.page?uuid=%7BEEC6CDF4-0F9C-4816-BE1C-E57D291D74E0%7D). I used [ESRI's](https://www.esri.com/en-us/home) ArcGIS Desktop to sample the section of the raster DEM where Mt. Horeb is located and exported it as a csv.
 
-Used homebrewer to download and install liblas library
+Converting the csv to a geoJSON was done using [csvtojson](https://www.npmjs.com/package/csvtojson). Isolines were drawn using Turf's [isolines](http://turfjs.org/docs#isolines). Unfortunately, some processing artifacts seem to have remained from the initial extraction.
 
-used las2ogr -formats to see what output options i could use - have several including shapefile, csv, and GeoJSON
+#### Great Serpent Mound Tin
 
-converted las data to geojson using:
-    las2ogr -i project-data/SerpentMoundModelLASData.las -o data/serpent.json -f "GeoJSON"
-note - is there a way to do that within the script? I initially tried and it did not like it.
+The Great Serpent Mound data was drawn from a LiDAR model downloaded from the [libLas Sample Library](https://www.liblas.org/samples/). The model is rather large (87 MB) and it was added to the .gitignore file. The LiDAR data could have also been downloaded directly from [Ohio](http://ogrip.oit.ohio.gov/Home.aspx) and clipped to the area of interest. The data would also need to be parsed by its classes.
 
-converting las to geojson made the biggest json ever so converted las to txt file - and realized the coordinates are in UTM.
-las2txt -i project-data/SerpentMoundModelLASData.las -o data/serpent.txt
+In order to process the data, I used [Homebrew](https://brew.sh/) to install the [libLas](https://www.liblas.org/index.html) tool set. I initially converted the data to a geoJSON:
 
-due to the epic size of the las data, i converted it to a txt file using the above command. it was too big to really use, so i brought it into arcgis and selected a 1% sample of the data and calculated the lat and long. will use the new csv for processing going forward.
+`$ las2ogr -i project-data/SerpentMoundModelLASData.las -o data/serpent.json -f "GeoJSON"`
 
-used csvtogeojson to convert serpent.csv to a geojson.
-used to turf to sample 100 points from the json and use those to make a tin
+and made an incredibily large JSON object (798 MB). I then converted the data to a text file:
+
+`$ las2txt -i project-data/SerpentMoundModelLASData.las -o data/serpent.txt`
+
+This file was still very large (91 MB) and contained over 3 million data points. I brought the file into ArcGIS and used the [Sampling Design Tool](https://www.arcgis.com/home/item.html?id=ecbe1fc44f35465f9dea42ef9b63e785) to extract a 1% random sample of points to a csv file. This is the file I used for my scripts.
+
+I again used csvtojson to create the geoJSON of Serpent Mound. I then used Turf's [Sample](http://turfjs.org/docs#sample) to select a random sample of 100 points from the JSON and [Tin](http://turfjs.org/docs#tin) to build a tin from those points.
