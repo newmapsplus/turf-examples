@@ -49,17 +49,25 @@
 
         console.log(features);
 
+        drawMounds(features);
+
+        function drawMounds(features) {
+
         var mounds = turf.featureCollection(features);
 
         console.log(mounds);
 
         //trying addLayer to add the turf feature collection
-        map.on('load', function() {
-            map.addLayer(mounds);
-        });
+        // map.on('load', function() {
+        //     map.addLayer(mounds);
+        // });
 
         //tried L.geoJson but that didn't work
-        //L.geoJson(mounds).addTo(map):
+        L.geoJson(mounds).addTo(map);
+        console.log(mounds);
+
+        //L.marker([mounds.geometry.coordinates[1], mounds.geometry.coordinates[0]]).addTo(map)
+        };
 
   </script>
 </body>
