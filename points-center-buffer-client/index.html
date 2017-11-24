@@ -1,0 +1,88 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Turf buffer points example</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="map"></div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <script>
+            // create Leaflet map, centered on Red River Gorge area of eastern Kentucky
+            var map = L.map('map', {
+                zoomSnap: .1,
+                center: [37.81, -83.64],
+                zoom: 12
+            });
+
+            map.setMaxBounds(map.getBounds());
+
+        // add a basemap of tiles
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
+            maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+        }).addTo(map);
+        var coords = [];
+        var i = 0;
+
+        $.getJSON('points.json', function (data) {
+            // create a layerGroup with points data
+            var points = L.geoJson(data).addTo(map);
+            // loop through the points
+            points.eachLayer(function (layer) {
+                // create a GeoJSON polyfeature buffer
+                var bufferGeoJSON = turf.buffer(layer.toGeoJSON(), .5, {
+                    units: 'kilometers'
+                });
+
+            var lat = layer.feature.geometry.coordinates[1];
+            var lng = layer.feature.geometry.coordinates[0];
+            // var latlng = lat.toString() + " " + lng.toString();
+            var latlng = [lat, lng];
+            
+            // console.log(latlng);
+            coords[i] = {lat, lng};
+            // coords[i] = layer.feature.geometry.coordinates;
+            
+            var point = turf.point(coords[i]);
+            //    console.log(point);
+                i++;
+                
+                // use the buffer GeoJSON to create a leaflet layer
+               L.geoJson(bufferGeoJSON).addTo(map);
+            });
+
+            console.log(coords);
+            console.log(i);
+            // create a GeoJSON center points
+           var centerGeoJSON = turf.center(coords);
+            //use the buffer GeoJSON to create a leaflet layer
+           L.geoJson(centerGeoJSON).addTo(map);
+        });
+    </script>
+</body>
+
+</html>
