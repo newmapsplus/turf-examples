@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Turf buffer points example</title>
+  <title>Turf Voronoi Example</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
 
   <style>
@@ -46,19 +46,30 @@
 
     $.when(
       $.getJSON('liquorstores.json'),
-      $.getJSON('utahcounties2.json')
+      $.getJSON('bboxCounties.json')
     ).done(function(liquorStores, counties) {
       drawMap(liquorStores, counties);
     });
 
     function drawMap(liquorStores, counties) {
 
-      L.geoJson(liquorStores).addTo(map);
-      L.geoJson(counties).addTo(map);
+      //create bounding box from counties, then convert to geojson
+      var box = L.geoJson(counties);
+      var boundingBox = turf.bbox(box.toGeoJSON());
 
+      //options for voronoiPolygons
+      var options = {
+        bbox: boundingBox
+      };
+
+      //add liquor store points to map
+      var points = L.geoJson(liquorStores).addTo(map);
+      //create voronoi polygons --convert points to geojson
+      var voronoiPolygons = turf.voronoi(points.toGeoJSON(), options);
+
+      //add voronoi Polygons to map
+      L.geoJson(voronoiPolygons).addTo(map);
     }
-
-
   </script>
 </body>
 

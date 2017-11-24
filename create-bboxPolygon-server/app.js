@@ -18,7 +18,7 @@ fs.readFile('utahcounties2.json', 'utf8', (err, data) => {
 
   //create polygon from bbox
   const bboxCountiesPoly = turf.bboxPolygon(bboxCounties)
-  const outFileName = 'bboxCounties.json'
+  const outFileName = '../voronoi-client/bboxCounties.json'
 
   //save polygon to new file
   fs.writeFile(outFileName, JSON.stringify(bboxCountiesPoly), 'utf8', (err) => {
