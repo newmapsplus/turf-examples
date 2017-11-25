@@ -63,11 +63,10 @@
             });
 
             // turn the array of coordinates into a featureCollection for turf processing
-            //var features = turf.featureCollection(coords);
+            var features = turf.featureCollection(coords);
             
             // create a GeoJSON center point
-            // var centerGeoJSON = turf.center(features);
-            var centerGeoJSON = turf.center(coords);
+            var centerGeoJSON = turf.center(features);
 
             // add the turf calculated center point to the map with accompanying tooltip
             L.geoJson(centerGeoJSON).addTo(map)
