@@ -53,7 +53,8 @@
         $.getJSON('points.json', function (data) {
             // create a layerGroup with points data
             var points = L.geoJson(data).addTo(map);
-            // loop through the points
+
+            // loop through the points to create an array of coordinates
             points.eachLayer(function (layer) {
 
                 // create an array of coordinates
