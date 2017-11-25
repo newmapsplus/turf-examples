@@ -12,5 +12,5 @@ The example use the following Turf methods:
 
 The output of VORONOI polygons:
 
-<!-- ![Example output of TIN processing with Turf](turf-voronoi-output.png) -->
+<!-- ![Example output of Voronoi processing with Turf](turf-voronoi-output.png) -->
 <img src="turf-voronoi-output.png" width="400">
