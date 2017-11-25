@@ -8,7 +8,7 @@ Turf [`turf.convex()`](http://turfjs.org/docs#convex) method which transforms th
 
 Turf [`turf.bbox()`](http://turfjs.org/docs#bbox) method uses the convex hull polygon data and calculates a bounding box.
 
-Turf [`turf.voronoi()`](http://turfjs.org/docs#voronoi) method transforms the points along with the bounding box limits to create voronoi polygons.
+ Turf [`turf.voronoi()`](http://turfjs.org/docs#voronoi) method transforms the points along with the bounding box limits to create voronoi polygons.
 
 The output of VORONOI polygons:
 
