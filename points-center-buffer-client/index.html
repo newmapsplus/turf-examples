@@ -32,7 +32,7 @@
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
     <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <script>
-            // create Leaflet map, centered on Red River Gorge area of eastern Kentucky
+            // create Leaflet map, centered on eastern Kentucky
             var map = L.map('map', {
                 zoomSnap: .1,
                 center: [37.81, -83.64],
@@ -45,7 +45,9 @@
         L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
             maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
         }).addTo(map);
-        var coords = [];
+
+
+        var coords = [];    //array to contain coordinates of points
         var i = 0;
 
         $.getJSON('points.json', function (data) {
@@ -53,36 +55,33 @@
             var points = L.geoJson(data).addTo(map);
             // loop through the points
             points.eachLayer(function (layer) {
-                // create a GeoJSON polyfeature buffer
-                var bufferGeoJSON = turf.buffer(layer.toGeoJSON(), .5, {
-                    units: 'kilometers'
-                });
 
-            var lat = layer.feature.geometry.coordinates[1];
-            var lng = layer.feature.geometry.coordinates[0];
-            // var latlng = lat.toString() + " " + lng.toString();
-            var latlng = [lat, lng];
-            
-            // console.log(latlng);
-            coords[i] = {lat, lng};
-            // coords[i] = layer.feature.geometry.coordinates;
-            
-            var point = turf.point(coords[i]);
-            //    console.log(point);
+                // create an array of coordinates
+                coords[i] = turf.point(layer.feature.geometry.coordinates);
                 i++;
-                
-                // use the buffer GeoJSON to create a leaflet layer
-               L.geoJson(bufferGeoJSON).addTo(map);
+
             });
 
-            console.log(coords);
-            console.log(i);
-            // create a GeoJSON center points
-           var centerGeoJSON = turf.center(coords);
-            //use the buffer GeoJSON to create a leaflet layer
-           L.geoJson(centerGeoJSON).addTo(map);
+            // turn the array of coordinates into a featureCollection for turf processing
+            var features = turf.featureCollection(coords);
+            
+            // create a GeoJSON center point
+            var centerGeoJSON = turf.center(features);
+
+            // add the turf calculated center point to the map with accompanying tooltip
+            L.geoJson(centerGeoJSON).addTo(map)
+                 .bindPopup('<b>Turf plotted center point</b><br>with 3 & 7 mile radius buffers.').openPopup();
+
+            //place a 5 miles raduis aroung the center point
+            var buffered = turf.buffer(centerGeoJSON, 3, { units: 'miles' });
+            L.geoJson(buffered).addTo(map);
+
+            //place a 5 miles raduis aroung the center point
+            var buffered = turf.buffer(centerGeoJSON, 7, { units: 'miles' });
+            L.geoJson(buffered).addTo(map);
+
         });
+
     </script>
 </body>
-
 </html>
