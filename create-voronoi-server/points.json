@@ -1,0 +1,313 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.6243559,
+                    37.7873067
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Silvermine Arch",
+                "COUNTY_NAME": "Wolfe"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.5962995,
+                    37.8000847
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Angel Windows",
+                "COUNTY_NAME": "Wolfe"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.5796323,
+                    37.8123069
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Castle Arch",
+                "COUNTY_NAME": "Wolfe"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.6843579,
+                    37.8370277
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Double Arch",
+                "COUNTY_NAME": "Powell"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.6582459,
+                    37.817306
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Grays Arch",
+                "COUNTY_NAME": "Powell"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.6215782,
+                    37.8195286
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Half Moon Arch",
+                "COUNTY_NAME": "Wolfe"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.7096365,
+                    37.8220276
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Nada Arches",
+                "COUNTY_NAME": "Powell"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.6843577,
+                    37.772584
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Natural Bridge",
+                "COUNTY_NAME": "Powell"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.6851912,
+                    37.7803617
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Owls Window",
+                "COUNTY_NAME": "Powell"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.6201893,
+                    37.8275841
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Princess Arch",
+                "COUNTY_NAME": "Wolfe"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.6671352,
+                    37.8353613
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Ravens Window",
+                "COUNTY_NAME": "Powell"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.5504648,
+                    37.8148072
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Red-byrd Arch",
+                "COUNTY_NAME": "Wolfe"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.5582427,
+                    37.7686965
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Rock Bridge Arch",
+                "COUNTY_NAME": "Wolfe"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.7213034,
+                    37.7823057
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Sand Gap Arch",
+                "COUNTY_NAME": "Powell"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.7179703,
+                    37.8725825
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Short Creek Arch",
+                "COUNTY_NAME": "Powell"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.5804658,
+                    37.8184179
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Sky Bridge",
+                "COUNTY_NAME": "Wolfe"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.7086111,
+                    37.7919444
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Slade Twin Arches",
+                "COUNTY_NAME": "Powell"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.6938027,
+                    37.8220278
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Star Gap Arch",
+                "COUNTY_NAME": "Powell"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.5635207,
+                    37.7764742
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Turtle Back Arch",
+                "COUNTY_NAME": "Wolfe"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.7051917,
+                    37.7534173
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Whites Branch Arch",
+                "COUNTY_NAME": "Powell"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.6638016,
+                    37.7831397
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Whittleton Arch",
+                "COUNTY_NAME": "Wolfe"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.643801,
+                    37.7884176
+                ]
+            },
+            "properties": {
+                "FEATURE_NAME": "Hidden Arch",
+                "COUNTY_NAME": "Powell"
+            }
+        }
+    ]
+}
