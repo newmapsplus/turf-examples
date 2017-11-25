@@ -1,9 +1,16 @@
-# TIN example
+# Voronoi example
 
-This example takes random points and creates an interpolated Triangulated Irregular Network.
+This example takes points and creates a FeatureCollection of Voronoi polygons.
 
-The example uses the Turf [`turf.tin()`](http://turfjs.org/docs#tin) method to calculate the buffer.
+The example use the following Turf methods:
 
-Input points and output TIN polygons:
+Turf [`turf.convex()`](http://turfjs.org/docs#convex) method which transforms the points into a convex hull polygon.
 
-![Example output of TIN processing with Turf](points-tin-output.png)
+Turf [`turf.bbox()`](http://turfjs.org/docs#bbox) method uses the convex hull polygon data and calculates a bounding box.
+
+Turf [`turf.voronoi()`](http://turfjs.org/docs#voronoi) method transforms the points along with the bounding box limits to create voronoi polygons.
+
+The output of VORONOI polygons:
+
+<!-- ![Example output of TIN processing with Turf](turf-voronoi-output.png) -->
+<img src="turf-voronoi-output.png" width="400">
