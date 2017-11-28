@@ -42,32 +42,36 @@
             maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
         }).addTo(map);
 
+        // data
         var features = [
-        turf.point([38.158700, -84.464767], {name: 'Mt. Horeb Mound'}),
-        turf.point([39.025100, -83.430080], {name: 'Great Serpent Mound'})
+            turf.point([-84.464767, 38.158700], { name: 'Mt. Horeb Mound' }),
+            turf.point([ -83.430080, 39.025100], { name: 'Great Serpent Mound' })
         ];
-
-        console.log(features);
-
-        drawMounds(features);
-
-        function drawMounds(features) {
 
         var mounds = turf.featureCollection(features);
 
-        console.log(mounds);
-
-        //trying addLayer to add the turf feature collection
-        // map.on('load', function() {
-        //     map.addLayer(mounds);
-        // });
-
         //tried L.geoJson but that didn't work
-        L.geoJson(mounds).addTo(map);
-        console.log(mounds);
+        var moundMarkers = L.geoJson(mounds).addTo(map);
+        
+        // recenter map on markers
+        map.fitBounds(moundMarkers.getBounds(), {
+            padding: [80,80]
+        });
+        
+        // determine distance between points 
+        var distance = turf.distance(features[0], features[1], {
+            units: 'miles' }
+        );
 
-        //L.marker([mounds.geometry.coordinates[1], mounds.geometry.coordinates[0]]).addTo(map)
-        };
+        var lineString = turf.lineString([
+            turf.getCoord(features[0]),
+            turf.getCoord(features[1])
+        ]);
+      
+        var line = L.geoJson(lineString).addTo(map);
+
+        line.bindTooltip(distance.toLocaleString() + ' miles').openTooltip();
+
 
   </script>
 </body>
