@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/newmapsplus/turf-examples#readme",
   "dependencies": {
-    "@turf/turf": "^5.0.4"
+    "@turf/turf": "^5.0.4",
+    "chalk": "^2.3.0",
+    "csvtojson": "^1.1.9",
+    "geojson-validation": "^0.1.6"
   }
 }

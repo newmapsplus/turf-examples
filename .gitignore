@@ -57,3 +57,13 @@ typings/
 # dotenv environment variables file
 .env
 
+# Serpent mound LiDAR data
+effigy-tin-server/project-data/SerpentMoundModelLASData.las
+
+# Serpent LiDAR JSON
+effigy-tin-server/data/serpent.json
+
+# Serpent LiDAR CSV
+effigy-tin-server/data/serpent.CSV
+effigy-tin-server/data/serpent.txt
+
