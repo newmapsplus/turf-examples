@@ -23,15 +23,16 @@ const voronoi = turf.voronoi(vorPoints, {
  })
      
 // output file name
-const outFileName = 'voronoi.json'
+const pointsFileOut = 'voronoi.json'
+const fileOut = 'vorPoints.json'
 
 // stringify the GeoJSON and write to file
-fs.writeFile('vorPoints.json', JSON.stringify(vorPoints), 'utf8', (err) => {
+fs.writeFile(pointsFileOut, JSON.stringify(vorPoints), 'utf8', (err) => {
     if (err) throw err
-    console.log('vorPoints.json' + ' written to file')
+    console.log(pointsFileOut + ' written to file')
 })
 // stringify the GeoJSON and write to file
-fs.writeFile(outFileName, JSON.stringify(voronoi), 'utf8', (err) => {
+fs.writeFile(fileOut, JSON.stringify(voronoi), 'utf8', (err) => {
     if (err) throw err
-    console.log(outFileName + ' written to file')
+    console.log(fileOut + ' written to file')
 })

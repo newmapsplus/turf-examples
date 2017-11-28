@@ -9,3 +9,5 @@ The example uses the Turf [`turf.convertArea()`](http://turfjs.org/docs#convertA
 
 
 Output Voronoi polygons and the random points.
+
+![Output Voronoi](output.png)
