@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Random Points &amp; A Great Circle!</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #map {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+        
+        #info {
+            position: absolute;
+            bottom: 150px;
+            right: 20px;
+            z-index: 650;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map">
+        <div id="info">
+            <h1>Press F5 to Refresh!</h1></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <script>
+        // create Leaflet map
+        var map = L.map('map', {
+            zoomSnap: .1
+            , center: [31, -92]
+            , zoom: 7.5
+        });
+        // add a basemap of tiles
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
+            maxZoom: 18
+            , attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+        }).addTo(map);
+        // used this website to determine bounds of polygon: https://www.mapdevelopers.com/geocode_bounding_box.php
+        var polygon = turf.polygon([[
+            [-95, 28]
+            , [-95, 34]
+            , [-88, 34]
+            , [-88, 28]
+            , [-95, 28]
+        ]]);
+        
+        // calculate the centroid of the polygon for the popup
+        var centroid = turf.centroid(polygon);
+
+        // shorcut ref to the coordinates
+        var coords = centroid.geometry.coordinates;
+
+        // add a feature collection of random points
+        var points = turf.randomPoint(1000, {
+            bbox: [-124.848974, 24.396308, -66.885444, 49.384358]
+        });
+        // do a point in polygon analysis
+        var searchWithin = turf.featureCollection([polygon]);
+        
+        // search the randomly generated points within the contig US and only return those that fall within the polygon in the searchWithin above
+        var pointsWithin = turf.pointsWithinPolygon(points, searchWithin);
+        
+        // create a popup with the number of points inside the polygon
+        var count = pointsWithin.features.length;
+        var popup = "Of the 1000 randomly-generated points within the contiguous United States, " + count + " of them fall within the bounding box."
+
+        // add the polygon boundary to the map    
+        L.geoJSON(polygon).bindPopup(popup).addTo(map).openPopup([coords[1], coords[0]]);
+
+        // add only the points within the polygon
+        L.geoJSON(pointsWithin).addTo(map);
+    </script>
+</body>
+
+</html>
