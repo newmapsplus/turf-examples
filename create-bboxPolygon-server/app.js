@@ -2,7 +2,7 @@ const fs = require('fs')
 const turf = require('@turf/turf')
 
 //read the utah counties file
-fs.readFile('utahcounties2.json', 'utf8', (err, data) => {
+fs.readFile('utah-counties.json', 'utf8', (err, data) => {
 
   if (err) throw err;
 
@@ -18,7 +18,7 @@ fs.readFile('utahcounties2.json', 'utf8', (err, data) => {
 
   //create polygon from bbox
   const bboxCountiesPoly = turf.bboxPolygon(bboxCounties)
-  const outFileName = '../voronoi-client/bboxCounties.json'
+  const outFileName = 'bboxCounties.json'
 
   //save polygon to new file
   fs.writeFile(outFileName, JSON.stringify(bboxCountiesPoly), 'utf8', (err) => {

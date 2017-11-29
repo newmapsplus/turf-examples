@@ -51,35 +51,26 @@
         var i = 0;
 
         $.getJSON('points.json', function (data) {
+            
             // create a layerGroup with points data
             var points = L.geoJson(data).addTo(map);
 
-            // loop through the points to create an array of coordinates
-            points.eachLayer(function (layer) {
-
-                // create an array of coordinates
-                coords[i] = turf.point(layer.feature.geometry.coordinates);
-                i++;
-
-            });
-
-            // turn the array of coordinates into a featureCollection for turf processing
-            var features = turf.featureCollection(coords);
-            
             // create a GeoJSON center point
-            var centerGeoJSON = turf.center(features);
+            var centerGeoJSON = turf.center(data);
 
             // add the turf calculated center point to the map with accompanying tooltip
             L.geoJson(centerGeoJSON).addTo(map)
                  .bindPopup('<b>Turf plotted center point</b><br>with 3 & 7 mile radius buffers.').openPopup();
 
             //place a 5 miles raduis aroung the center point
-            var buffered = turf.buffer(centerGeoJSON, 3, { units: 'miles' });
-            L.geoJson(buffered).addTo(map);
+            var buffer1 = turf.buffer(centerGeoJSON, 3, { units: 'miles' });
+            
+            L.geoJson(buffer1).addTo(map);
 
             //place a 5 miles raduis aroung the center point
-            var buffered = turf.buffer(centerGeoJSON, 7, { units: 'miles' });
-            L.geoJson(buffered).addTo(map);
+            var buffer2 = turf.buffer(centerGeoJSON, 7, { units: 'miles' });
+            
+            L.geoJson(buffer2).addTo(map);
 
         });
 

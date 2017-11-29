@@ -67,7 +67,6 @@
         //let's get our click location to buffer
         map.on('click', function(e) {
             //clear our buffer circle
-            console.log(e);
             bufferCircle.clearLayers();
             //call our functions to create a buffer and select the points within it [change the 200 to whatever you want the buffer to be]
             selectPoints(bufferPoint(e, 200));
