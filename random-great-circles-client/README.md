@@ -7,3 +7,12 @@ The example uses the following Turf methods:
 *[`turf.greatCircle()`](http://turfjs.org/docs#greatCircle)
 *[`turf.distance()`](http://turfjs.org/docs#distance)
 *[`turf.midpoint()`](http://turfjs.org/docs#midpoint)
+
+refreshing the map generates new points and greatCircle!
+
+idea for a future map/application: allow users to add their own points to create a web map of world travel ala a digital version of a wall map at home with pushpins
+
+other idea: randomly select two points from a database of points (airports, for example) and generate great circle between them. Or ...
+
+allow user to choose a start point (home airport) and then click a "Where To Next?" button to randomly select another airport from a database of airport locations. Like throwing a dart at the map, only in digital!
+    
