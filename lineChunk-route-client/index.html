@@ -1,0 +1,67 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Turf lineChunk Route Client</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="map"></div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <script>
+        // create Leaflet map, centered on Trail View State Park, NY
+        var map = L.map('map', {
+            zoomSnap: .1,
+            center: [40.85, -73.46],
+            zoom: 14
+        });
+
+        // add a basemap of tiles
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+        }).addTo(map);
+
+        //async request for data, replace 'line.geojson' with the name of your file 
+        $.getJSON('line.geojson', function(data) {
+
+            //create a layerGroup with line data
+            var line = L.geoJson(data);
+
+            //create a GeoJSON line chunk, replace '.25' with your distance, and 'miles' with your units 
+            var chunk = turf.lineChunk(line.toGeoJSON(), .25, {
+                units: 'miles'
+            });
+            //console.log the number of chunks of the input distance in the array
+            console.log(chunk)
+
+            //use the chunk GeoJSON to create a Leaflet layer and draw it to the map
+            L.geoJson(chunk).addTo(map)
+               
+        })
+    </script>
+</body>
+
+</html>
