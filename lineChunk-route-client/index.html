@@ -54,12 +54,12 @@
             var chunk = turf.lineChunk(line.toGeoJSON(), .25, {
                 units: 'miles'
             });
-            //console.log the number of chunks of the input distance in the array
-            console.log(chunk)
-
+            
             //use the chunk GeoJSON to create a Leaflet layer and draw it to the map
             L.geoJson(chunk).addTo(map)
-               
+                //add a Popup with the number of line chunks created of the input distance
+                .bindTooltip('turf.lineChunk created '+chunk.features.length+' line segments').openTooltip();
+
         })
     </script>
 </body>
