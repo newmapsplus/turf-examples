@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Nearest Point Client</title>
+  <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      bottom: 0;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="map"></div>
+
+  <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+  <script>
+    var map = L.map('map', {
+      zoomSnap: .1,
+      center: [40.33077, -99.5182],
+      zoom: 4.2
+    });
+
+    // mapbox access token
+    var accessToken = 'pk.eyJ1Ijoic3RpbmV3b29kd2FyZCIsImEiOiJjamRqYTFkeGkxbWp4MzNwNGFqeWV4eXNoIn0.TeQcpE5u4tQ5zQGa983aJg';
+
+    // add mapbox tile layers using access token
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + accessToken, {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox.light',
+      accessToken: accessToken
+    }).addTo(map);
+
+    // create a geocoder control object with options
+    var geoCoderControl = L.mapbox.geocoderControl('mapbox.places', {
+      accessToken: accessToken,
+      keepOpen: true,
+      autocomplete: true,
+      position: 'topright'
+    });
+
+    // add the geocoder to the map
+    map.addControl(geoCoderControl)
+  </script>
+</body>
+
+</html>
