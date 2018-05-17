@@ -29,7 +29,10 @@
   <div id="map"></div>
 
   <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+  <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+  <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
   <script>
+    // add map options
     var map = L.map('map', {
       zoomSnap: .1,
       center: [40.33077, -99.5182],
@@ -57,6 +60,53 @@
 
     // add the geocoder to the map
     map.addControl(geoCoderControl)
+
+    // use d3-fetch to request the hospital geojson
+    d3.json('data/hospitals.json')
+      .then(function(data) {
+        drawMap(data); // send data out of callback to a new function
+      });
+
+    function drawMap(hospitals) {
+
+      // listen for a selection and then invoke the callback function
+      geoCoderControl.on('select', function(result) {
+        // add variable to store search result
+        var targetPoint = result.feature;
+
+        // add a marker on the map
+        var searchResult = L.geoJson(targetPoint).addTo(map);
+
+        // add and open tooltip for search point
+        searchResult.bindTooltip(result.feature.place_name).openTooltip();
+
+        // use turf's nearestPoint() method to find the nearest hospital in the
+        // feature collection to the search point
+        var nearestHospital = turf.nearestPoint(targetPoint, hospitals);
+
+        // call the distance function
+        findDistanceToHospital(targetPoint, nearestHospital);
+      });
+
+      function findDistanceToHospital(targetPoint, nearestHospital) {
+
+        // create leaflet marker for nearest hospital and add to map
+        var hospitalMarker = L.geoJson(nearestHospital).addTo(map);
+
+        // use Turf to determine the distance in miles between the
+        // search point and point from feature collection
+        var distance = turf.distance(nearestHospital, targetPoint, {
+          units: 'miles'
+        });
+
+        // bind the distance info to the hospital marker and open the tooltip
+        hospitalMarker.bindTooltip('The nearest hospital is ' +
+          (Math.round(distance * 1000) / 1000).toLocaleString() +
+          ' miles from searched location').openTooltip();
+      }
+
+
+    } // end drawMap
   </script>
 </body>
 
