@@ -34,7 +34,11 @@
             function(dataSource) {
                 var p = dataSource.entities.values;
                 for (var i = 0; i < p.length; i++) {
-                    p[i].polygon.extrudedHeight = p[i]._properties._count._value * 1000; // or height property
+                    if (p[i]._properties._count._value == 0) {
+                        p[i]._show = false;
+                    } else {
+                        p[i].polygon.extrudedHeight = p[i]._properties._count._value * 1000; // or height property
+                    }
                 }
                 viewer.dataSources.add(dataSource);
                 viewer.zoomTo(dataSource);
