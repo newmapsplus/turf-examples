@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8">
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>Turf and Cesium</title>
+    <style>
+        @import url("../node_modules/cesium/Build/Cesium/Widgets/widgets.css");
+        html,
+        body,
+        #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="cesiumContainer"></div>
+
+    <script src="../node_modules/cesium/Build/Cesium/Cesium.js"></script>
+    <script>
+        var viewer = new Cesium.Viewer('cesiumContainer');
+
+        var dataSource = Cesium.GeoJsonDataSource.load('data/milGrid.json').then(
+            function(dataSource) {
+                var p = dataSource.entities.values;
+                for (var i = 0; i < p.length; i++) {
+                    var height =
+                    p[i].polygon.extrudedHeight = p[i]._properties._count._value * 10000; // or height property
+                }
+                viewer.dataSources.add(dataSource);
+                viewer.zoomTo(dataSource);
+            }
+        );
+
+        /*var uk = viewer.dataSources.add(Cesium.GeoJsonDataSource.load('data/milGrid.json', {
+            stroke: Cesium.Color.fromAlpha(Cesium.Color.BLACK, 0.7),
+            fill: Cesium.Color.fromAlpha(Cesium.Color.GREEN, 0.5),
+            strokeWidth: 5
+        }));
+
+        uk.polygon.extrudedHeight = uk.properties.count * 10000;
+
+        viewer.zoomTo(uk);*/
+    </script>
+</body>
+
+</html>
