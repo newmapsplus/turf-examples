@@ -30,27 +30,17 @@
     <script>
         var viewer = new Cesium.Viewer('cesiumContainer');
 
-        var dataSource = Cesium.GeoJsonDataSource.load('data/milGrid.json').then(
+        var dataSource = Cesium.GeoJsonDataSource.load('data/parkGrid.json').then(
             function(dataSource) {
                 var p = dataSource.entities.values;
                 for (var i = 0; i < p.length; i++) {
-                    var height =
-                    p[i].polygon.extrudedHeight = p[i]._properties._count._value * 10000; // or height property
+                    p[i].polygon.extrudedHeight = p[i]._properties._count._value * 1000; // or height property
                 }
                 viewer.dataSources.add(dataSource);
                 viewer.zoomTo(dataSource);
             }
         );
 
-        /*var uk = viewer.dataSources.add(Cesium.GeoJsonDataSource.load('data/milGrid.json', {
-            stroke: Cesium.Color.fromAlpha(Cesium.Color.BLACK, 0.7),
-            fill: Cesium.Color.fromAlpha(Cesium.Color.GREEN, 0.5),
-            strokeWidth: 5
-        }));
-
-        uk.polygon.extrudedHeight = uk.properties.count * 10000;
-
-        viewer.zoomTo(uk);*/
     </script>
 </body>
 
