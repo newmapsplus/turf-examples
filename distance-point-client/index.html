@@ -66,12 +66,16 @@
         // access the airports file
         $.getJSON('data/airports.json', function (data) {
 
-            // create a layerGroup with airport locations
-            //var airports = L.geoJson(data);
+            //create a layerGroup with airport locations
+            var airports = data;
+            console.log(airports);
+
 
             // use turf to generate two random points from the airports file
-            var points = turf.randomPoint(2, data);
-            console.log(points)
+            var points = turf.randomPoint(2, {
+                bbox: turf.bbox(airports)
+            });
+            console.log(points);
 
             // pull the points out of the two-feature array and into individual variables so that they can be passed into the greatCircle var
             var start = points.features[0];

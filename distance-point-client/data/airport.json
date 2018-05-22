@@ -1,7 +1,5 @@
 {
 "type": "FeatureCollection",
-"name": "airports",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
 { "type": "Feature", "properties": { "scalerank": 2, "featurecla": "Airport", "type": "major", "name": "Hong Kong Int'l", "abbrev": "HKG", "location": "terminal", "gps_code": "VHHH", "iata_code": "HKG", "wikipedia": "http:\/\/en.wikipedia.org\/wiki\/Hong_Kong_International_Airport", "natlscale": 150.0 }, "geometry": { "type": "Point", "coordinates": [ 113.935016387376351, 22.315332828086753 ] } },
 { "type": "Feature", "properties": { "scalerank": 2, "featurecla": "Airport", "type": "major", "name": "Taoyuan", "abbrev": "TPE", "location": "terminal", "gps_code": "RCTP", "iata_code": "TPE", "wikipedia": "http:\/\/en.wikipedia.org\/wiki\/Taiwan_Taoyuan_International_Airport", "natlscale": 150.0 }, "geometry": { "type": "Point", "coordinates": [ 121.231370453323265, 25.076741104334637 ] } },
