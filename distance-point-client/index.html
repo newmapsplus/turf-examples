@@ -72,9 +72,7 @@
 
 
             // use turf to generate two random points from the airports file
-            var points = turf.randomPoint(2, {
-                bbox: turf.bbox(airports)
-            });
+            var points = turf.sample(airports, 2) 
             console.log(points);
 
             // pull the points out of the two-feature array and into individual variables so that they can be passed into the greatCircle var
