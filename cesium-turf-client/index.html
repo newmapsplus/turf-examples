@@ -30,9 +30,19 @@
     <script>
         var viewer = new Cesium.Viewer('cesiumContainer');
 
-        var dataSource = Cesium.GeoJsonDataSource.load('data/countries.geojson').then(
+
+
+        var dataSource = Cesium.GeoJsonDataSource.load('data/countriesGdp.json').then(
             function(dataSource) {
-                
+                var p = dataSource.entities.values;
+
+                /*for (var i = 0; i < p.length; i++) {
+                    if (p[i]._properties._gdp_2016_1._value == null) {
+                        p[i]._show = false;
+                    } else {
+                        p[i].polygon.extrudedHeight = p[i]._properties._gdp_2016_1._value * 1000000000000000; // or height property
+                    }
+                }*/
                 viewer.dataSources.add(dataSource);
                 viewer.zoomTo(dataSource);
             }
