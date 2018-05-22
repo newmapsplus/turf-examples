@@ -92,7 +92,7 @@
             };
             var distance = turf.distance(start, end, options).toFixed(2);
 
-            var popup = "These airports are " + distance + " miles apart.";   
+            var popup = start.properties.name + " Airport is " + distance + " miles from " + end.properties.name + " Airport.";   
 
             // find the midpoint between the start and end for the openTooltip command
             var midpoint = turf.midpoint(start, end);
