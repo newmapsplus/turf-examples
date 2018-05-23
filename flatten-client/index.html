@@ -1,0 +1,65 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Turf dissolve client side</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="map"></div>
+    <!-- <script src="https://d3js.org/d3-fetch.v1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <script>
+
+        // create Leaflet map, centered on Texas
+        var map = L.map('map', {
+            zoomSnap: .1,
+            center: [38, -84],
+            zoom: 6
+        });
+
+        // add a basemap of tiles
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
+            maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+        }).addTo(map);
+
+        $.getJSON('data/huc14-simple.json', function (data) {
+            drawMap(data);
+        })
+
+        function drawMap(data) {
+        
+            // flatten multipolygons into single feature
+
+            var flattened = turf.flatten(data)
+            
+            // add to map
+            L.geoJson(flattened).addTo(map)
+
+        } // end drawMap
+    </script>
+</body>
+
+</html>

@@ -26,6 +26,9 @@
     "@turf/turf": "^5.0.4",
     "chalk": "^2.3.0",
     "csvtojson": "^1.1.9",
-    "geojson-validation": "^0.1.6"
+    "fs": "0.0.1-security",
+    "geojson-validation": "^0.1.6",
+    "mapshaper": "^0.4.75",
+    "turf": "^3.0.14"
   }
 }
