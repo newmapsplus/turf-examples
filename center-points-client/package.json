@@ -1,0 +1,31 @@
+{
+  "name": "turf-examples",
+  "version": "1.0.0",
+  "description": "repo for collecting student-generated examples using Turf",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newmapsplus/turf-examples.git"
+  },
+  "keywords": [
+    "GIS",
+    "mapping",
+    "Turf",
+    "GeoJSON"
+  ],
+  "author": "rgdonohue",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/newmapsplus/turf-examples/issues"
+  },
+  "homepage": "https://github.com/newmapsplus/turf-examples#readme",
+  "dependencies": {
+    "@turf/turf": "^5.0.4",
+    "chalk": "^2.3.0",
+    "csvtojson": "^1.1.9",
+    "geojson-validation": "^0.1.6"
+  }
+}
