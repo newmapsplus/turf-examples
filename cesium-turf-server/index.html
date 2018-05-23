@@ -28,24 +28,28 @@
 
     <script src="../node_modules/cesium/Build/Cesium/Cesium.js"></script>
     <script>
-
+        // set options for cesium viewer
         var options = {
             animation: false,
             timeline: false
         }
-
+        // create viewer object with options
         var viewer = new Cesium.Viewer('cesiumContainer', options);
-
+        //load park data into viewer
         var dataSource = Cesium.GeoJsonDataSource.load('data/parkGrid.json').then(
             function(dataSource) {
+                //declare an entities call object to access feature values
                 var p = dataSource.entities.values;
+                // do not show park if count is 0
+                // else extrude park square by count value * 1000
                 for (var i = 0; i < p.length; i++) {
                     if (p[i]._properties._count._value == 0) {
                         p[i]._show = false;
                     } else {
-                        p[i].polygon.extrudedHeight = p[i]._properties._count._value * 1000; // or height property
+                        p[i].polygon.extrudedHeight = p[i]._properties._count._value * 1000;
                     }
                 }
+                // add data to viewer and zoom to layer
                 viewer.dataSources.add(dataSource);
                 viewer.zoomTo(dataSource);
             }

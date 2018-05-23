@@ -29,32 +29,35 @@
     <script src="../node_modules/cesium/Build/Cesium/Cesium.js"></script>
     <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <script>
-
-        var points = turf.randomPoint(100, {bbox: [-180, -90, 180, 90]}); 
+        // create random points within a given bounding box
+        var points = turf.randomPoint(100, {bbox: [-180, -90, 180, 90]});
+        // create a TIN from the points
         var tin = turf.tin(points);
+        // draw the cesium map
         drawMap(tin);
 
         function drawMap(tin) {
-
+            // set options for cesium viewer
             var options = {
                 animation: false,
                 timeline: false
             }
-
+            // create viewer object with options
             var viewer = new Cesium.Viewer('cesiumContainer', options);
-
+            //load TIN data into viewer
             var dataSource = Cesium.GeoJsonDataSource.load(tin).then(
                 function(dataSource) {
+                    //declare an entities call object to access feature values
                     var p = dataSource.entities.values;
-                    //console.log(p);
+                    // iterate over all entities
                     for (var i = 0; i < p.length; i++) {
-                        var rN = Math.floor(Math.random() * 100);
-                        p[i].polygon.extrudedHeight = rN * 10000;
-                        p[i].polygon.material = Cesium.Color.fromRandom({
+                        var rN = Math.floor(Math.random() * 100); // create random height
+                        p[i].polygon.extrudedHeight = rN * 10000; // extrude each entity
+                        p[i].polygon.material = Cesium.Color.fromRandom({ // assign random color
                             alpha: 0.2
                         });
                     }
-
+                    // add data to viewer and zoom to layer
                     viewer.dataSources.add(dataSource);
                     viewer.zoomTo(dataSource);
                 }
