@@ -30,17 +30,30 @@
     <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <script>
 
-        var points = turf.randomPoint(1000);
+        var points = turf.randomPoint(100, {bbox: [-180, -90, 180, 90]}); 
         var tin = turf.tin(points);
         drawMap(tin);
 
         function drawMap(tin) {
-            var viewer = new Cesium.Viewer('cesiumContainer');
+
+            var options = {
+                animation: false,
+                timeline: false
+            }
+
+            var viewer = new Cesium.Viewer('cesiumContainer', options);
 
             var dataSource = Cesium.GeoJsonDataSource.load(tin).then(
                 function(dataSource) {
                     var p = dataSource.entities.values;
                     //console.log(p);
+                    for (var i = 0; i < p.length; i++) {
+                        var rN = Math.floor(Math.random() * 100);
+                        p[i].polygon.extrudedHeight = rN * 10000;
+                        p[i].polygon.material = Cesium.Color.fromRandom({
+                            alpha: 0.2
+                        });
+                    }
 
                     viewer.dataSources.add(dataSource);
                     viewer.zoomTo(dataSource);

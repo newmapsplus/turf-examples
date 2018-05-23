@@ -28,7 +28,13 @@
 
     <script src="../node_modules/cesium/Build/Cesium/Cesium.js"></script>
     <script>
-        var viewer = new Cesium.Viewer('cesiumContainer');
+
+        var options = {
+            animation: false,
+            timeline: false
+        }
+
+        var viewer = new Cesium.Viewer('cesiumContainer', options);
 
         var dataSource = Cesium.GeoJsonDataSource.load('data/parkGrid.json').then(
             function(dataSource) {
