@@ -26,7 +26,7 @@ csv({
 })
 .fromStream(readableStream) // reads from stream
 .on('json',(jsonObj, i)=>{ // converts to json
-    if((i % 10000) == 0) console.log("testing row #: "+ chalk.blue(i))
+    if((i % 1000) == 0) console.log("testing row #: "+ chalk.blue(i))
 
         // build a GeoJSON feature for each
         feature = {
@@ -37,12 +37,10 @@ csv({
                     +jsonObj.X,
                     +jsonObj.Y,
                   ],
-                "elevation": [
-                    +jsonObj.Z
-                ]
                 },
                 "properties": {
-                    FEATURE_NAME: jsonObj.OBJECTID
+                    FEATURE_NAME: jsonObj.OBJECTID,
+                    "elevation": +jsonObj.Z
                 }
         }
         // push the feature into the features array

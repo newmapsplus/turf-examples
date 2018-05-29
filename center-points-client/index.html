@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Turf center of points example</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="map"></div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <script src="friendLocation.geojson" type="text/javascript"></script>
+    <script>
+
+        // create Leaflet map, centered on Texas
+        var map = L.map('map', {
+            zoomSnap: .1,
+            center: [42, -95],
+            zoom: 4
+        });
+
+        // add a basemap of tiles
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
+            maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+        }).addTo(map);
+
+        //add geoJson to map
+        L.geoJSON(friendLocation).addTo(map);
+
+        //find center of points
+        var center = turf.center(friendLocation);
+
+        //add center with tooltip
+        L.geoJSON(center).addTo(map).bindTooltip("I'm the absolute center!").openTooltip();
+
+
+
+
+    </script>
+</body>
+
+</html>

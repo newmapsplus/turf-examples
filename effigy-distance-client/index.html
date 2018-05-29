@@ -1,0 +1,78 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Effigy Distance Client Example</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+
+  <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+  </style>
+
+</head>
+
+<body>
+        <div id="map"></div>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+        <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+  <script>
+
+        // create Leaflet map, centered on Serpent Mound
+        var map = L.map('map', {
+            zoomSnap: .1,
+            center: [39.02575, -83.43034],
+            zoom: 15
+        });
+
+        // add a basemap of tiles
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
+            maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+        }).addTo(map);
+
+        // data
+        var features = [
+            turf.point([-84.464767, 38.158700], { name: 'Mt. Horeb Mound' }),
+            turf.point([ -83.430080, 39.025100], { name: 'Great Serpent Mound' })
+        ];
+
+        var mounds = turf.featureCollection(features);
+
+        //tried L.geoJson but that didn't work
+        var moundMarkers = L.geoJson(mounds).addTo(map);
+        
+        // recenter map on markers
+        map.fitBounds(moundMarkers.getBounds(), {
+            padding: [80,80]
+        });
+        
+        // determine distance between points 
+        var distance = turf.distance(features[0], features[1], {
+            units: 'miles' }
+        );
+
+        var lineString = turf.lineString([
+            turf.getCoord(features[0]),
+            turf.getCoord(features[1])
+        ]);
+      
+        var line = L.geoJson(lineString).addTo(map);
+
+        line.bindTooltip(distance.toLocaleString() + ' miles').openTooltip();
+
+
+  </script>
+</body>
+</html>
