@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8">
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>Turf and Cesium</title>
+    <style>
+        @import url("../node_modules/cesium/Build/Cesium/Widgets/widgets.css");
+        html,
+        body,
+        #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="cesiumContainer"></div>
+
+    <script src="../node_modules/cesium/Build/Cesium/Cesium.js"></script>
+    <script>
+        // set options for cesium viewer
+        var options = {
+            animation: false,
+            timeline: false
+        }
+        // create viewer object with options
+        var viewer = new Cesium.Viewer('cesiumContainer', options);
+        //load park data into viewer
+        var dataSource = Cesium.GeoJsonDataSource.load('data/parkGrid.json').then(
+            function(dataSource) {
+                //declare an entities call object to access feature values
+                var p = dataSource.entities.values;
+                // do not show park if count is 0
+                // else extrude park square by count value * 1000
+                for (var i = 0; i < p.length; i++) {
+                    if (p[i]._properties._count._value == 0) {
+                        p[i]._show = false;
+                    } else {
+                        p[i].polygon.extrudedHeight = p[i]._properties._count._value * 1000;
+                    }
+                }
+                // add data to viewer and zoom to layer
+                viewer.dataSources.add(dataSource);
+                viewer.zoomTo(dataSource);
+            }
+        );
+
+    </script>
+</body>
+
+</html>
