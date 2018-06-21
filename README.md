@@ -10,9 +10,9 @@ We believe that mapping, data science and visualization, coding, and learning, i
 
 ## How to use and contribute to this resource
 
-1.) Explore the directories within the repository. They contain smaller examples using the Turf library to accomplish various specific GIS and mapping tasks. 
-2.) Clone the entire repository down to run and test the examples.
-3.) Create a new branch, follow the convention described below, and push up more examples!
+1. Explore the directories within the repository. They contain smaller examples using the Turf library to accomplish various specific GIS and mapping tasks. 
+2. Clone the entire repository down to run and test the examples.
+3. Create a new branch, follow the convention described below, and push up more examples!
 
 Examples designed and tested for running in the browser end with the `-client` suffix. Examples designed and tested for running within a Node environment on the server end with a `-server` suffix.
 
