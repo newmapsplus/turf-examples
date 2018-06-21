@@ -1,12 +1,12 @@
 # Turf Examples
 
-This repository houses simple examples that use [Turf.js](http://turfjs.org/) for solving small, specific GIS and mapping problems. These examples were generated through an assignment for the [New Maps Plus](https://newmapsplus.uky.edu/) course MAP675 *Collaborative Geovisualization*, taught in the Fall of 2017 and the Spring of 2018.
+This repository houses simple examples that use [Turf.js](http://turfjs.org/) for solving small, specific GIS and mapping challenges. These examples were generated through the [New Maps Plus](https://newmapsplus.uky.edu/) course MAP675 *Collaborative Geovisualization*.
 
 **Purpose:** 
 
-We believe that mapping, data science and visualization, coding, and learning, in general, happens best in a collaborative environment. Web map development and debugging can be an unfortunately solitary activity. MAP675 is an attempt to redress this through explicit instruction in project management and web map development. We seek to harness the collective potential of open source tools such as Git and the libraries that help support our craft of coupling cartography with the latest and greatest of web technologies.
+We believe that mapping, data science and visualization, coding, and learning, in general, happens best in a collaborative environment. Web map development in New Maps Plus is a community-driven effort and MAP675 contributes to this through explicit instruction in project management and web map development. We seek to harness the collective potential of open source tools such as Git and the libraries that help support our craft of coupling cartography with the latest and greatest of web technologies.
 
-[Turf.js](http://turfjs.org/) is an exciting JavaScript library capable of performing many common geospatial analysis and transformation tasks. The documentation is excellent, but more examples always help. The New Maps Plus students built these examples to improve their mastery of the library, and now we'd like to share these with you.
+[Turf.js](http://turfjs.org/) is an exciting JavaScript library capable of performing many common geospatial analysis and transformation tasks. The documentation is excellent, but more examples always help. The New Maps Plus students built these examples to improve their mastery of the library, and now we'd like to share these with you!
 
 ## How to use and contribute to this resource
 
